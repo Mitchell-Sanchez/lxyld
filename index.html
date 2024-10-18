@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>倒计时</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #countdown {
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>Last Day</h1> -->
+    <h1>Last Day</h1>
+    <div id="countdown"></div>
+
+    <script>
+        // 设置目标时间（年，月，日，小时，分钟，秒）
+        const countdownDate = new Date('2024-10-31T18:00:00').getTime();
+
+        // 更新倒计时的函数
+        function updateCountdown() {
+            const now = new Date().getTime(); // 获取当前时间
+            const distance = countdownDate - now; // 计算与目标时间的距离
+
+            // 时间计算
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const msecond = Math.floor(distance % 1000);
+
+            // 显示结果
+            document.getElementById('countdown').innerHTML = days + "天 " + hours + "小时 "
+            + minutes + "分钟 " + seconds + "秒 " + msecond ;
+
+            // 如果倒计时结束，显示一条消息
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById('countdown').innerHTML = "已经到达目标时间！";
+            }
+        }
+
+        // 每隔一秒更新一次倒计时
+        const x = setInterval(updateCountdown, 0);
+
+        // 首次调用以避免初始延迟
+        updateCountdown();
+    </script>
+</body>
+</html>
